@@ -1,0 +1,22 @@
+<div th:switch="${autos}">
+    <h2 th:case="null">No autos yet!</h2>
+    <div th:case="*">
+        <h2>AUTOS</h2>
+        <table border="1.5">
+            <thead>
+            <tr>
+                <th>Marca</th>
+                <th>Placas</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${autos}">
+                <td th:text="${user.getMarca()}"></td>
+                <td th:text="${user.getPlacas()}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

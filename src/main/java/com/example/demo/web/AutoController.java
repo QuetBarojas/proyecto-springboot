@@ -7,6 +7,8 @@ import com.example.demo.service.AutoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,8 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/autos")
+@Controller
 @RequiredArgsConstructor
 public class AutoController {
 
@@ -27,6 +28,12 @@ public class AutoController {
     @GetMapping("/all")
     public ResponseEntity<List<AutoDTO>> getAutos(){
         return ResponseEntity.ok(autoService.getAll());
+    }
+
+    @GetMapping("/auto")
+    public String viewHomePage(Model model) {
+        model.addAttribute("autos", autoService.getAll());
+        return "auto";
     }
 
     @GetMapping("/{id}")
@@ -41,7 +48,7 @@ public class AutoController {
 
     @PutMapping("/{id}")
     public ResponseEntity<AutoDTO> update(@PathVariable long id,@RequestBody AutoForm autoForm){
-        return ResponseEntity.status(HttpStatus.CREATED).body(autoService.create(autoForm));
+        return ResponseEntity.status(HttpStatus.OK).body(autoService.create(autoForm));
     }
 
 
