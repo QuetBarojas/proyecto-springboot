@@ -1,8 +1,12 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="master">
 <div th:switch="${autos}">
     <h2 th:case="null">No autos yet!</h2>
     <div th:case="*">
-        <h2>AUTOS</h2>
-        <table border="1.5">
+        <h2> AUTOS</h2>
+        <table border="1.5" class="table table-bordered">
             <thead>
             <tr>
                 <th>Marca</th>
@@ -12,9 +16,11 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="user : ${autos}">
-                <td th:text="${user.getMarca()}"></td>
-                <td th:text="${user.getPlacas()}"></td>
+            <tr th:each="auto : ${autos}">
+                <td th:text="${auto.getMarca()}"></td>
+                <td th:text="${auto.getPlacas()}"></td>
+                <td></td>
+                <td></td>
             </tr>
             </tbody>
         </table>
