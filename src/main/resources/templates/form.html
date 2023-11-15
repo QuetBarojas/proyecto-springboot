@@ -1,0 +1,20 @@
+<form th:action="@{/create}" th:object="${auto}" method="post" enctype="application/x-www-form-urlencoded">
+    <fieldset>
+        <legend>Datos del usuario</legend>
+        <table>
+            <tr>
+                <td><label >Marca: </label></td>
+                <td><input type="text" th:field="*{marca}" /></td>
+            </tr>
+            <tr>
+                <td><label >Placas: </label></td>
+                <td><input type="text" id=placas th:field="*{placas}" /></td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="submit">Registrar...</button>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</form>

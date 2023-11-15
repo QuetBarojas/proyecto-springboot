@@ -6,16 +6,20 @@ import com.example.demo.form.AutoForm;
 import com.example.demo.service.AutoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -44,6 +48,21 @@ public class AutoController {
     @PostMapping
     public ResponseEntity<AutoDTO> create(@RequestBody AutoForm autoForm){
         return ResponseEntity.status(HttpStatus.CREATED).body(autoService.create(autoForm));
+    }
+
+    @RequestMapping("/form")
+    public String showAutoForm(Model model){
+        model.addAttribute("auto", new AutoForm());
+        return "form";
+    }
+
+    @RequestMapping(path="/create", method = RequestMethod.POST
+            , produces = {"application/json"}
+            ,  consumes = {"application/x-www-form-urlencoded"})
+    public String createAuto(@ModelAttribute AutoForm autoForm) {
+        ModelAndView model = new ModelAndView();
+        model.addObject("auto", autoService.create(autoForm));
+        return "redirect:/auto";
     }
 
     @PutMapping("/{id}")
